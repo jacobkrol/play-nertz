@@ -12,7 +12,6 @@ import Popup from './Popup';
 import Connecting from './Connecting';
 
 const client = new w3cwebsocket('ws:192.168.0.8:8000');
-// const client = new w3cwebsocket('wss://playnertz.herokuapp.com:8000/');
 
 class App extends React.Component {
     state = {
