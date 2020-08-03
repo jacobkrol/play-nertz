@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/play-nertz/static/css/main.aa55c618.chunk.css",
+    "main.js": "/play-nertz/static/js/main.dae589f8.chunk.js",
+    "main.js.map": "/play-nertz/static/js/main.dae589f8.chunk.js.map",
+    "runtime-main.js": "/play-nertz/static/js/runtime-main.a30ab989.js",
+    "runtime-main.js.map": "/play-nertz/static/js/runtime-main.a30ab989.js.map",
+    "static/js/2.3776ac3b.chunk.js": "/play-nertz/static/js/2.3776ac3b.chunk.js",
+    "static/js/2.3776ac3b.chunk.js.map": "/play-nertz/static/js/2.3776ac3b.chunk.js.map",
+    "index.html": "/play-nertz/index.html",
+    "precache-manifest.22d65daa74e14d00a7d974a4aee608e9.js": "/play-nertz/precache-manifest.22d65daa74e14d00a7d974a4aee608e9.js",
+    "service-worker.js": "/play-nertz/service-worker.js",
+    "static/css/main.aa55c618.chunk.css.map": "/play-nertz/static/css/main.aa55c618.chunk.css.map",
+    "static/js/2.3776ac3b.chunk.js.LICENSE.txt": "/play-nertz/static/js/2.3776ac3b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a30ab989.js",
+    "static/js/2.3776ac3b.chunk.js",
+    "static/css/main.aa55c618.chunk.css",
+    "static/js/main.dae589f8.chunk.js"
+  ]
+}
