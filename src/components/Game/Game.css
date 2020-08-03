@@ -1,0 +1,46 @@
+#game fieldset {
+    margin: 10px;
+}
+
+#game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+#game-lake-row {
+
+}
+
+#game-player-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+}
+
+#game .flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+@media only screen and (max-width: 500px) {
+    #game-player-row {
+        margin-top: 4px;
+    }
+    #game .flex-row {
+        /* justify-content: center; */
+        /* align-items: stretch; */
+    }
+    #game fieldset {
+        margin: 4px;
+        padding: 4px;
+        /* padding: auto; */
+    }
+
+}

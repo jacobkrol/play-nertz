@@ -1,0 +1,32 @@
+.spinner-container {
+    position: relative;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-container > svg {
+    display: inline-block;
+    position: relative;
+}
+
+.spinner-container > svg:first-of-type {
+    animation: outerspinner cubic-bezier(0,0,0,0) 2s infinite;
+}
+
+@keyframes outerspinner {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-container > svg:last-of-type {
+    animation: innerspinner cubic-bezier(0,0,0,0) 2s infinite;
+}
+
+@keyframes innerspinner {
+    100% {
+        transform: rotate(-360deg);
+    }
+}

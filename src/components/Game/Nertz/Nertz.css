@@ -1,0 +1,25 @@
+#nertz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+@media only screen and (max-width: 400px) {
+    #nertz-container {
+        /* flex-direction: row;
+        justify-content: center;
+        align-items: flex-start; */
+    }
+    #nertz-container > .card-box {
+        min-width: 45px;
+    }
+}
+
+#nertz-container > p {
+    font-size: 22px;
+    margin: 5px 0 0 0;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}

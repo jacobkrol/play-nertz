@@ -1,0 +1,115 @@
+#scoreboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+#scoreboard > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+.scoreboard-title {
+    font-size: 32px;
+    text-align: center;
+    margin: 25px 0;
+}
+.scoreboard-subtitle {
+    font-size: 24px;
+    text-align: center;
+    text-decoration: underline;
+    margin: 0;
+}
+
+.scoreboard-table {
+    /* border-collapse: collapse; */
+    border-spacing: 0 15px;
+    /* width: 100%; */
+    text-align: center;
+    margin: 0 auto 25px auto;
+    font-size: 24px;
+}
+.scoreboard-table td {
+    padding: 0 20px;
+    /* margin: 4px 0; */
+    /* border: 1px solid #DDD; */
+}
+.scoreboard-table thead td {
+    /* border-bottom: 1px solid #DDD; */
+    font-style: italic;
+    font-size: 16px;
+    color: #A99;
+}
+.scoreboard-table > tbody > tr > td:last-of-type {
+    border-left: 2px solid #DDD;
+}
+
+@media only screen and (max-width: 500px) {
+    .scoreboard-subtitle {
+        font-size: 22px;
+    }
+    .scoreboard-table {
+        font-size: 22px;
+    }
+    .scoreboard-table td {
+        padding: 0 12px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .scoreboard-table td {
+        padding: 0 6px;
+    }
+}
+
+#scoreboard-ready-button {
+    display: inline-block;
+    position: relative;
+    margin: 25px auto 15px auto;
+    min-width: 85px;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 22px;
+    transition: border 0.5s;
+    cursor: pointer;
+}
+#scoreboard-ready-button.ready {
+    background-color: #1F1A28;
+    border: 5px solid #F66;
+}
+#scoreboard-ready-button.ready:hover {
+    border-color: #F99;
+    transition: 0.5s;
+}
+#scoreboard-ready-button.unready {
+    background-color: #1A1F28;
+    border: 5px solid #6F6;
+}
+#scoreboard-ready-button.unready:hover {
+    border-color: #9F9;
+    transition: border 0.5s;
+}
+#scoreboard-ready-button p {
+    margin: 0;
+}
+
+#scoreboard-ready-users {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#scoreboard .ready-user {
+    margin: 0;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#scoreboard .ready-user > p {
+    margin: 0 7px 0 0;
+}
+#scoreboard .ready-user > .ready {
+    color: lime;
+}
+#scoreboard .ready-user > .unready {
+    color: #C33;
+}

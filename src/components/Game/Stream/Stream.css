@@ -1,0 +1,66 @@
+#stream-container {
+    position: relative;
+}
+
+#stream-cards {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+}
+
+#stream-cards > *:not(:last-child), .riverpile > *:not(:last-child) {
+    opacity: 0.5;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#next-stream {
+    font-size: 18px;
+    margin: 0;
+    border: 2px solid #DDD;
+    border-radius: 6px;
+    padding: 5px 10px;
+    background-color: #1F1A28;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    bottom: -30px;
+}
+#next-stream > p {
+    margin: 0;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+    #stream-cards {
+        /* flex-direction: row; */
+    }
+    #stream-cards > *:not(:last-child) {
+        /* border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        width: 40px; */
+        height: 20px;
+    }
+    #next-stream {
+        font-size: 16px;
+        padding: 3px 5px;
+        bottom: -25px;
+        right: 0;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #next-stream {
+        bottom: -30px;
+    }
+}
+
+@media only screen and (min-width: 501px) {
+    #stream-cards > *:not(:last-child) {
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+        height: 25px;
+    }
+}

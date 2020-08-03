@@ -1,0 +1,13 @@
+.lobby-user {
+    display: inline-block;
+    margin: 5px;
+    padding: 16px;
+    border: 3px solid #446;
+    border-radius: 8px;
+    background-color: #101020;
+    font-size: 22px;
+}
+
+.lobby-user p {
+    margin: 0;
+}

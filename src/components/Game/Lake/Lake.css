@@ -1,0 +1,42 @@
+#lake-container {
+    min-height: 65px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+#ace-out {
+    font-size: 18px;
+    margin: 0;
+    border: 2px solid #DDD;
+    border-radius: 6px;
+    padding: 5px 10px;
+    background-color: #1F1A28;
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    right: -5px;
+    bottom: -30px;
+}
+#ace-out > p {
+    margin: 0;
+}
+
+@media only screen and (max-width: 500px) {
+    #ace-out {
+        font-size: 16px;
+        padding: 3px 5px;
+        bottom: -20px;
+        right: 0px;
+    }
+    #lake-container {
+        min-height: 60px;
+    }
+    #lake-container .card-box {
+        margin-top: -4px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    #lake-container {
+        min-height: 55px;
+    }
+}

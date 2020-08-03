@@ -1,0 +1,21 @@
+#river-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.river-pile {
+    display: flex;
+    flex-direction: column;
+}
+.river-pile > *:not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 25px;
+}
+
+@media only screen and (max-width: 400px) {
+    .river-pile > *:not(:last-child) {
+        height: 15px;
+    }
+}

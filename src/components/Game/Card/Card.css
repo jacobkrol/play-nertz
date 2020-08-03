@@ -1,0 +1,59 @@
+.card-box {
+    margin: 2px 5px;
+    border-radius: 6px;
+    border: 2px solid #555;
+    padding: 4px;
+    display: inline-block;
+    background-color: #DDD;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.card-box.selected {
+    background-color: lime;
+}
+.card-box.selected > .card {
+    border-color: #555;
+}
+
+.card {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    height: 35px;
+    width: 55px;
+    background-color: #DDD;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card p {
+    padding-bottom: 4px;
+}
+
+.card > * {
+    margin: 0;
+    font-size: 22px;
+    font-family: 'Noticia Text', Georgia, 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+@media only screen and (max-width: 500px) {
+    .card {
+        width: 50px;
+        height: 30px;
+    }
+    .card-box {
+        margin: 1px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .card {
+        width: 45px;
+        height: 25px;
+    }
+    .card > * {
+        /* font-size: 20px; */
+    }
+}

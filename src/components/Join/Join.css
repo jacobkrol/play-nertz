@@ -1,0 +1,57 @@
+#join {
+    display: table;
+    width: 100%;
+    min-height: 60vh;
+    text-align: center;
+}
+#join > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+#join > div > div:first-of-type {
+    margin-bottom: 25px;
+}
+#join * {
+    font-size: 1em;
+    font-family: 'Kanit', 'Arial Black', Charcoal, Gadget, sans-serif;
+}
+#join-announcement {
+    font-size: 24px;
+    text-align: center;
+}
+#create-announcement {
+    font-size: 21px;
+    text-align: center;
+}
+#create-disclaimer {
+    font-size: 14px;
+    text-align: center;
+    font-style: italic;
+}
+#join input {
+    padding: 4px 8px;
+    margin: 5px;
+    border: 2px solid #CCC;
+    border-radius: 4px;
+}
+#join input:focus {
+    outline: none;
+}
+#join input[type="text"]:not(#create-cpu-count) {
+    min-width: 50vw;
+}
+#join input[type="button"] {
+    background-color: #88F;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+#create-button {
+    padding: 12px !important;
+    border-radius: 6px !important;
+}
+#create-cpu-count {
+    max-width: 100px;
+}
+#create-cpu-difficulty {
+    padding: 4px;
+}
