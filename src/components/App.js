@@ -101,8 +101,8 @@ class App extends React.Component {
                         }
                     } else if(msg.data === 0) {
                         //new game -> reset variables
-                        const blank0Arr = Array.from(Array(this.state.numCPUs), () => 0);
-                        const blank13Arr = Array.from(Array(this.state.numCPUs), () => 13);
+                        const blank0Arr = Array.from(Array(Number(this.state.numCPUs)), () => 0);
+                        const blank13Arr = Array.from(Array(Number(this.state.numCPUs)), () => 13);
                         this.setState({
                             countdown: undefined,
                             isLocked: false,
@@ -110,8 +110,8 @@ class App extends React.Component {
                             lastLake: 0,
                             lastNertz: 13,
                             readyUsers: [],
-                            lastCPULake: blank0Arr,
-                            lastCPUNertz: blank13Arr
+                            lastCPULake: [...blank0Arr],
+                            lastCPUNertz: [...blank13Arr]
                         });
                     }
                     break;
