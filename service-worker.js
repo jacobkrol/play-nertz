@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/play-nertz/precache-manifest.22d65daa74e14d00a7d974a4aee608e9.js"
+  "/play-nertz/precache-manifest.6f8ff139b6b3edc41bcee3db571c7ae8.js"
 );
 
 self.addEventListener('message', (event) => {
