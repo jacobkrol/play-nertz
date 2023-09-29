@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import './Card.css';
 import { GiSpades, GiDiamonds, GiHearts, GiClubs } from 'react-icons/gi';
 
@@ -26,8 +26,30 @@ export default function Card(props) {
     const color = props.card.slice(3,4);
     const text = getTextFromValue(value);
 
+    const flashTimeout = useRef(null);
+
+    const cardId = useMemo(() => props.user ? props.card+"-"+props.user : props.card, [props.user, props.card]);
+
+    useEffect(() => {
+        if (props.source === "lake") {
+            const card = document.getElementById(cardId);
+            card.classList.add("flash");
+            flashTimeout.current = setTimeout(() => {
+                card.classList.remove("flash");
+            }, 800); // timeout must be >= animation-duration in Card.css
+
+            if (props.card.slice(0,2) === "13") {
+                card.classList.add("flipped");
+            }
+        }
+
+        return () => {
+            clearTimeout(flashTimeout.current);
+        }
+    }, [props.card, props.source, cardId]);
+
     return (
-        <div id={props.user ? props.card+"-"+props.user : props.card} className="card-box" onClick={() => props.user ? props.handleClick(props.card,props.user) : props.handleClick(props.card)}>
+        <div id={cardId} className="card-box" onClick={() => props.user ? props.handleClick(props.card,props.user) : props.handleClick(props.card)}>
             <div className="card" style={{color: color === 'R' ? 'red' : color === 'B' ? 'black' : 'lime'}}>
                 <p>{text}</p>
                 {suit === 'H'

@@ -2,6 +2,8 @@
     min-height: 65px;
     padding-bottom: 10px;
     position: relative;
+    max-height: 65px;
+    transition: max-height 800ms ease-in-out;
 }
 
 #ace-out {

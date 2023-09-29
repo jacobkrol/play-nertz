@@ -5,6 +5,7 @@ import River from './River';
 import Nertz from './Nertz';
 import Stream from './Stream';
 import { get_deck, solitaire_stack, lake_stack } from './logic.js';
+import { FaPause, FaPlay } from "react-icons/fa";
 
 export default function Game(props) {
     //define non-stateful variables
@@ -219,6 +220,11 @@ export default function Game(props) {
         if(selected) unselect(selected);
     }
 
+    const pauseGame = () => {
+        props.handlePause(!props.isPaused);
+        document.getElementById("game-pause-overlay").classList.toggle("paused");
+    }
+
     return (
         <div id="game">
             <div id="game-lake-row">
@@ -232,6 +238,12 @@ export default function Game(props) {
                     <Nertz nertz={nertz.length > 0 ? nertz : ['00XX']} handleClick={handleClick} />
                     <Stream stream={stream} handleClick={handleClick} streamIndex={streamIndex} streamPileSize={streamPileSize} nextStream={nextStream} />
                 </div>
+            </div>
+            <div id="game-pause" onClick={pauseGame}>
+                {props.isPaused ? <FaPlay title="resume game" /> : <FaPause title="pause game" />}
+            </div>
+            <div id="game-pause-overlay">
+                <p>GAME PAUSED</p>
             </div>
         </div>
     )

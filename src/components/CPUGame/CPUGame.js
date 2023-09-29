@@ -18,6 +18,8 @@ export default function CPUGame(props) {
     const { difficulty } = props;
 
     const action = (pNertz=1) => {
+        if(props.isPaused) return;
+
         let action = false;
         if(Math.random() < pNertz/3) {
             switch(randint(2)) {
@@ -72,6 +74,10 @@ export default function CPUGame(props) {
             case 3:
                 delay = 1000;
                 pNertz = 1.0;
+                break;
+            case 4:
+                delay = 600;
+                pNertz = 1.2;
                 break;
             default:
                 console.log("invalid difficulty selected");
@@ -151,7 +157,6 @@ export default function CPUGame(props) {
                 top = nertz.current[nertz.current.length-1];
             if(solitaire_stack(bottom,top)) {
                 pile.push(nertz.current.pop());
-                console.log("nertz pop:",nertz.current.length,"id:",props.id);
                 props.updateCPUNertz(props.id,nertz.current.length);
                 return true;
             }

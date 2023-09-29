@@ -32,6 +32,7 @@ class App extends React.Component {
         isLocked: true, // true
         isReady: false,
         isHost: false,
+        isPaused: false, // false
         numCPUs: 0,
         CPUdiff: 1,
         readyUsers: [],
@@ -383,6 +384,10 @@ class App extends React.Component {
         }   
     }
 
+    handlePause = (isPaused) => {
+        this.setState({ isPaused });
+    }
+
     render() {
         return (
             <div id="app-container">
@@ -396,10 +401,10 @@ class App extends React.Component {
                                         ? <Countdown text={this.state.countdown} shape={Number(this.state.countdown) ? 'circle' : 'square'} />
                                         : <Scoreboard scoreUpdate={this.state.scoreUpdate} scores={this.state.scores} handleReady={this.handleReady} readyUsers={this.state.readyUsers} gameCount={this.state.gameCount} isOffline={this.state.isJoinedOffline} />
                                     : <>
-                                        <Game lake={this.state.lake} newLake={this.newLake} name={this.state.name} updateScore={this.updateScore} updateNertz={this.updateNertz} />
+                                        <Game lake={this.state.lake} newLake={this.newLake} name={this.state.name} updateScore={this.updateScore} updateNertz={this.updateNertz} handlePause={this.handlePause} isPaused={this.state.isPaused} />
                                         {this.state.isHost
                                             ? [...Array(Number(this.state.numCPUs))].map((n,i) =>
-                                                <CPUGame id={i} key={i} get_lake={() => [...this.state.lake]} newLake={this.newLake} updateCPUScore={this.updateCPUScore} updateCPUNertz={this.updateCPUNertz} difficulty={this.state.CPUdiff} />
+                                                <CPUGame id={i} key={i} get_lake={() => [...this.state.lake]} newLake={this.newLake} updateCPUScore={this.updateCPUScore} updateCPUNertz={this.updateCPUNertz} difficulty={this.state.CPUdiff} isPaused={this.state.isPaused} />
                                               )
                                             : null
                                         }
