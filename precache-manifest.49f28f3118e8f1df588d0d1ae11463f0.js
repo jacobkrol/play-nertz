@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "54f0cc868ed00a18255dd108c66208d2",
+    "revision": "2c75cd5ca97079b4239a4aea03668f47",
     "url": "/play-nertz/index.html"
   },
   {
