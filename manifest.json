@@ -1,25 +1,34 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Nertz",
+  "name": "Play Nertz",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo-750.png",
+      "sizes": "750x750",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
-      "src": "logo192.png",
+      "src": "logo-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
-      "src": "logo512.png",
+      "src": "logo-64.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "64x64",
+      "purpose": "maskable"
+    },
+    {
+      "src": "logo-rounded.png",
+      "type": "image/png",
+      "sizes": "398x398"
     }
+
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#F3F3F3",
+  "background_color": "#399567"
 }
