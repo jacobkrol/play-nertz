@@ -2,7 +2,26 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: flex-start;
     flex-wrap: wrap;
+    overflow-y: scroll;
+    margin-left: 10px;
+    margin-bottom: auto;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+#lobby-user-container::-webkit-scrollbar {
+    width: 10px;
+}
+#lobby-user-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+#lobby-user-container::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 5px;
+}
+#lobby-user-container::-webkit-scrollbar-thumb:hover {
+    background: #AAA;
 }
 
 #lobby-announcement {
@@ -13,16 +32,21 @@
 #lobby-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
+    /* display: grid;
+    grid-template-rows: max-content 1fr max-content; */
+    flex-grow: 1;
+
 }
 
 #lobby-ready-container {
     display: inline-block;
-    position: fixed;
+    /* position: fixed; */
     text-align: center;
-    bottom: 15px;
+    /* bottom: 15px; */
     width: 100%;
+    padding-top: 20px;
 }
 #lobby-ready-button {
     display: inline-block;
@@ -64,13 +88,16 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 0;
+    margin: 5px 0;
     /* position: fixed;
     bottom: 10px;
     z-index: 5; */
 }
 #lobby-container .ready-user {
     margin: 0;
-    padding: 5px 10px;
+    padding: 0px 10px;
     display: flex;
     flex-direction: row;
     align-items: center;

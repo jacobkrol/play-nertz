@@ -34,9 +34,6 @@
     border: 2px solid #CCC;
     border-radius: 4px;
 }
-#join input:focus {
-    outline: none;
-}
 #join input[type="text"]:not(#create-cpu-count) {
     min-width: 50vw;
 }
@@ -45,8 +42,13 @@
     padding: 4px 12px;
     cursor: pointer;
 }
-#create-button {
-    padding: 12px !important;
+#join input[type="button"].outlined {
+    background-color: transparent;
+    color: #88F;
+    border-color: #88F;
+}
+.create-button {
+    padding: 6px 12px !important;
     border-radius: 6px !important;
 }
 #create-cpu-count {

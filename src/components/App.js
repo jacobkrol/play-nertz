@@ -10,11 +10,21 @@ import Join from './Join';
 import Scoreboard from './Scoreboard';
 import Popup from './Popup';
 import Connecting from './Connecting';
+import "./App.css";
 
-const client = new w3cwebsocket('ws:192.168.0.8:8000');
+let client;
+let noConnect = false;
+try {
+    client = new w3cwebsocket('ws:192.168.56.1:8000');
+} catch(err) {
+    console.error("Failed to connect to server:", err);
+    noConnect = true;
+}
 
 class App extends React.Component {
     state = {
+        isJoinedOffline: false,
+        willBeOffline: false,
         isConnected: false,
         gameId: false, // false
         isLoggedIn: false, // false
@@ -26,6 +36,7 @@ class App extends React.Component {
         CPUdiff: 1,
         readyUsers: [],
         countdown: undefined,
+        countdownTimeout: [],
         popup: false,
         name: undefined,
         users: [],
@@ -38,14 +49,13 @@ class App extends React.Component {
         scoreUpdate: {},
         gameCount: 0
     }
-    componentDidMount() {
+
+    configureClient = () => {
         client.onopen = () => {
-            this.setState({isConnected: true});
-            console.log("websocket client connected");
+            this.setState({ isConnected: true, willBeOffline: true });
         };
         client.onmessage = (message) => {
             const msg = JSON.parse(message.data);
-            // console.log("message received:",msg);
 
             switch(msg.type) {
                 case 'lakeupdate':
@@ -152,9 +162,57 @@ class App extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if(noConnect) {
+            this.setState({ isConnected: true, willBeOffline: true });
+            return;
+        }
+
+        if(client) {
+            try {
+                this.configureClient();
+            } catch(err) {
+                console.error("Failed to initialize server connection:",err);
+            }
+        }
+    }
+
+    goOffline = () => {
+        this.setState({ isConnected: true, willBeOffline: true });
+        noConnect = true;
+        console.log("Zero dark thirty. Going dark");
+    }
+
     endGame = () => {
-        const text = <><span>Nertz!</span><br /><br /><span>Click OKAY to view the results.</span></>;
-        this.setState({isLocked: true, popup: text});
+        if(this.state.isJoinedOffline) {
+            const text = <><span>Nertz!</span><br /><br /><span>Click OKAY to view the results.</span></>;
+            let scoreUpdate = {};
+            scoreUpdate[this.state.name] = {
+                lake: this.state.lastLake,
+                nertz: this.state.lastNertz
+            };
+            for(let i=0; i<this.state.numCPUs; i++) {
+                const name = "CPU "+String(i);
+                scoreUpdate[name] = {
+                    lake: this.state.lastCPULake[i],
+                    nertz: this.state.lastCPUNertz[i]
+                };
+            }
+            let newScores1 = {...this.state.scores};
+            Object.keys(scoreUpdate).forEach((user, i) => {
+                newScores1[user] += Number(scoreUpdate[user].lake)-2*Number(scoreUpdate[user].nertz);
+            });
+            this.setState({
+                isLocked: true,
+                popup: text,
+                scoreUpdate: scoreUpdate,
+                scores: {...newScores1},
+                gameCount: this.state.gameCount+1
+            });
+        } else {
+            const text = <><span>Nertz!</span><br /><br /><span>Click OKAY to view the results.</span></>;
+            this.setState({isLocked: true, popup: text});
+        }
     }
 
     updateScore = (newValue) => {
@@ -199,26 +257,64 @@ class App extends React.Component {
     }
 
     handleJoin = (gameId) => {
+        if(!client) {
+            alert("Could not connect to the server. Please refresh and try again.");
+            return;
+        }
         client.send(JSON.stringify({
             type: 'joingame',
             data: gameId
         }));
     }
 
-    handleCreate = (numCPUs,diff) => {
-        this.setState({numCPUs: numCPUs, CPUdiff: diff});
-        client.send(JSON.stringify({
-            type: 'newgame',
-            numCPUs: numCPUs
-        }));
+    handleCreate = (numCPUs,diff,offline) => {
+        if(!offline) {
+            this.setState({numCPUs: numCPUs, CPUdiff: diff});
+            client.send(JSON.stringify({
+                type: 'newgame',
+                numCPUs: numCPUs
+            }));
+        } else {
+            let users = [];
+            let scores = {};
+            for(let i=0; i<numCPUs; i++) {
+                const name = "CPU "+String(i);
+                users.push(name);
+                scores[name] = 0;
+            }
+            this.setState({
+                numCPUs: numCPUs,
+                CPUdiff: diff,
+                users: [...users],
+                scores: {...scores},
+                isJoinedOffline: true
+            });
+        }
     }
 
     handleLogin = (name) => {
-        client.send(JSON.stringify({
-            type: 'newuser',
-            gameId: this.state.gameId,
-            name: name
-        }));
+        if(this.state.isJoinedOffline) {
+            if(this.state.users.indexOf(name) === -1) {
+                let users = [...this.state.users];
+                const scores = {...this.state.scores};
+                users.push(name);
+                scores[name] = 0;
+                this.setState({
+                    isLoggedIn: true,
+                    name: name,
+                    users: [...users],
+                    scores: {...scores}
+                });
+            } else {
+                alert("That username is already taken. Please type another and join again.");
+            }
+        } else {
+            client.send(JSON.stringify({
+                type: 'newuser',
+                gameId: this.state.gameId,
+                name: name
+            }));
+        } 
     }
 
     handleStart = () => {
@@ -232,34 +328,71 @@ class App extends React.Component {
     }
 
     handleReady = (isReady) => {
-        client.send(JSON.stringify({
-            type: 'newready',
-            gameId: this.state.gameId,
-            data: isReady
-        }));
+        if(this.state.isJoinedOffline) {
+            this.setState({isRunning: true, countdown: 5});
+            for(let i=4; i>-1; i--) {
+                const newTimeout = setTimeout(() => this.setState({"countdown":Number(i)}), 1000*(5-Number(i)) );
+                let timers = [...this.state.countdownTimeout];
+                timers.push(newTimeout);
+                this.setState({countdownTimeout: timers});
+            }
+            const newTimeout = setTimeout(() => {
+                //new game -> reset variables
+                const blank0Arr = Array.from(Array(Number(this.state.numCPUs)), () => 0);
+                const blank13Arr = Array.from(Array(Number(this.state.numCPUs)), () => 13);
+                this.setState({
+                    isLocked: false,
+                    countdown: undefined,
+                    lake: [],
+                    lastLake: 0,
+                    lastNertz: 13,
+                    readyUsers: [],
+                    lastCPULake: [...blank0Arr],
+                    lastCPUNertz: [...blank13Arr]
+                });
+            }, 4950);
+            let timers = [...this.state.countdownTimeout];
+            timers.push(newTimeout);
+            this.setState({countdownTimeout: timers});
+        } else {
+            client.send(JSON.stringify({
+                type: 'newready',
+                gameId: this.state.gameId,
+                data: isReady
+            }));
+        }
     }
 
     newLake = (lake) => {
-        client.send(JSON.stringify({
-            type: 'newlake',
-            gameId: this.state.gameId,
-            data: [...lake]
-        }));
+        if(this.state.isJoinedOffline) {
+            this.setState({lake: lake});
+        } else {
+            client.send(JSON.stringify({
+                type: 'newlake',
+                gameId: this.state.gameId,
+                data: [...lake]
+            }));
+        }
+    }
 
+    handlePause = (isPaused) => {
+        if(this.state.isJoinedOffline) {
+            this.setState({ isPaused });
+        }   
     }
 
     render() {
         return (
-            <>
+            <div id="app-container">
                 <Header name={this.state.name} gameId={this.state.gameId} />
                 {this.state.isConnected
-                    ? this.state.gameId
+                    ? this.state.gameId || this.state.isJoinedOffline
                         ? this.state.isLoggedIn
                             ? this.state.isRunning
                                 ? this.state.isLocked
                                     ? this.state.countdown
                                         ? <Countdown text={this.state.countdown} shape={Number(this.state.countdown) ? 'circle' : 'square'} />
-                                        : <Scoreboard scoreUpdate={this.state.scoreUpdate} scores={this.state.scores} handleReady={this.handleReady} readyUsers={this.state.readyUsers} gameCount={this.state.gameCount} />
+                                        : <Scoreboard scoreUpdate={this.state.scoreUpdate} scores={this.state.scores} handleReady={this.handleReady} readyUsers={this.state.readyUsers} gameCount={this.state.gameCount} isOffline={this.state.isJoinedOffline} />
                                     : <>
                                         <Game lake={this.state.lake} newLake={this.newLake} name={this.state.name} updateScore={this.updateScore} updateNertz={this.updateNertz} />
                                         {this.state.isHost
@@ -269,16 +402,16 @@ class App extends React.Component {
                                             : null
                                         }
                                       </>
-                                : <Lobby handleReady={this.handleReady} users={this.state.users} readyUsers={this.state.readyUsers} />
+                                : <Lobby handleReady={this.handleReady} users={this.state.users} readyUsers={this.state.readyUsers} isOffline={this.state.isJoinedOffline} />
                             : <Login handleLogin={this.handleLogin} />
-                        : <Join handleJoin={this.handleJoin} handleCreate={this.handleCreate} throwPopup={(text) => this.setState({popup: text})} />
-                    : <Connecting />
+                        : <Join handleJoin={this.handleJoin} handleCreate={this.handleCreate} throwPopup={(text) => this.setState({popup: text})} isOffline={this.state.willBeOffline} />
+                    : <Connecting goOffline={this.goOffline} />
                 }
                 {this.state.popup
                     ? <Popup text={this.state.popup} handleClose={() => this.setState({popup: false})} />
                     : null
                 }
-            </>
+            </div>
         )
     }
 }

@@ -22,17 +22,19 @@ export default function Lobby(props) {
                 <div id="lobby-ready-button" className={isReady ? "ready" : "unready"} onClick={() => handleReady()}>
                     <p>{isReady ? "CANCEL" : "READY"}</p>
                 </div>
-                <div id="lobby-ready-users">
-                    {props.users.map((user,i) => user !== String("CPU "+Number(i+1))
-                        ?   <div key={i} className="ready-user">
-                                <>
-                                    <p>{user}</p>
-                                    {props.readyUsers.indexOf(user) !== -1 ? <FaCheckCircle className="ready" title="ready" /> : <FaTimesCircle className="unready" title="not ready" />}
-                                </>
-                            </div>
-                        : null
-                    )}
-                </div>
+                {props.isOffline ? null : 
+                    <div id="lobby-ready-users">
+                        {props.users.map((user,i) => user !== String("CPU "+Number(i+1))
+                            ?   <div key={i} className="ready-user">
+                                    <>
+                                        <p>{user}</p>
+                                        {props.readyUsers.indexOf(user) !== -1 ? <FaCheckCircle className="ready" title="ready" /> : <FaTimesCircle className="unready" title="not ready" />}
+                                    </>
+                                </div>
+                            : null
+                        )}
+                    </div>
+                }
             </div>
         </div>
     )
