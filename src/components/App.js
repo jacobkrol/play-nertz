@@ -15,7 +15,7 @@ import "./App.css";
 let client;
 let noConnect = false;
 try {
-    client = new w3cwebsocket('ws:192.168.56.1:8000');
+    client = new w3cwebsocket('ws:nertz.app.kroljs.com');
 } catch(err) {
     console.error("Failed to connect to server:", err);
     noConnect = true;
@@ -52,7 +52,7 @@ class App extends React.Component {
 
     configureClient = () => {
         client.onopen = () => {
-            this.setState({ isConnected: true, willBeOffline: true });
+            this.setState({ isConnected: true, willBeOffline: false });
         };
         client.onmessage = (message) => {
             const msg = JSON.parse(message.data);
@@ -168,7 +168,9 @@ class App extends React.Component {
             return;
         }
 
+        console.log({client});
         if(client) {
+            console.log("yes");
             try {
                 this.configureClient();
             } catch(err) {
