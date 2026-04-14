@@ -239,9 +239,12 @@ export default function Game(props) {
                     <Stream stream={stream} handleClick={handleClick} streamIndex={streamIndex} streamPileSize={streamPileSize} nextStream={nextStream} />
                 </div>
             </div>
-            <div id="game-pause" onClick={pauseGame}>
-                {props.isPaused ? <FaPlay title="resume game" /> : <FaPause title="pause game" />}
-            </div>
+            {props.isOffline ?
+                <div id="game-pause" onClick={pauseGame}>
+                    {props.isPaused ? <FaPlay title="resume game" /> : <FaPause title="pause game" />}
+                </div>
+                : null
+            }
             <div id="game-pause-overlay">
                 <p>GAME PAUSED</p>
             </div>

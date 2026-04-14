@@ -233,6 +233,7 @@ export default function CPUGame(props) {
                 score.current = score.current + 1;
                 props.updateCPUScore(props.id,score.current);
                 pile.push({card:stream.current.splice(streamIndex.current+streamPileSize.current-1,1)[0],user:"*"+props.id});
+                props.newLake(newLake);
                 streamPileSize.current = streamPileSize.current - 1;
                 return true;
             }
