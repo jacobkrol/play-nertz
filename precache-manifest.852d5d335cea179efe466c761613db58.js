@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bef349e985e55652b00e64832c77f2de",
+    "revision": "3fd556211c282abffc1de05ec25f7e01",
     "url": "/play-nertz/index.html"
   },
   {
-    "revision": "4af467ef7c858180217c",
+    "revision": "d5dc6e529e6cf237ec79",
     "url": "/play-nertz/static/css/main.eede24f5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/play-nertz/static/js/2.3167d2b9.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4af467ef7c858180217c",
-    "url": "/play-nertz/static/js/main.0a0698d6.chunk.js"
+    "revision": "d5dc6e529e6cf237ec79",
+    "url": "/play-nertz/static/js/main.f1469539.chunk.js"
   },
   {
     "revision": "f087ce1e78731139ef1b",
